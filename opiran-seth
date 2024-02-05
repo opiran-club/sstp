@@ -97,9 +97,9 @@ config() {
 
     cd ..
 
-    mv vpnserver /opt/softether
+    mv vpnserver /opt/vpnserver
     
-    sudo /opt/softether/vpnserver start
+    sudo /opt/vpnserver/vpnserver start
 
     # Create a service file
     echo "[Unit]
@@ -145,7 +145,7 @@ echo -ne "${YELLOW}Type your desire admin password ${NC}"
 read password
 
 expect <<EOF
-    spawn sudo /opt/softether/vpncmd 127.0.0.1:5555
+    spawn sudo /opt/vpnserver/vpncmd 127.0.0.1:5555
 
     expect "Select 1, 2 or 3:"
     send "1\r"
@@ -178,7 +178,7 @@ uninstall() {
         [yY])
             systemctl stop softether-vpnserver
             systemctl disable softether-vpnserver
-            rm -rf /opt/softether
+            rm -rf /opt/vpnserver
             rm /etc/systemd/system/softether-vpnserver.service
 
             if [ $? -eq 0 ]; then
@@ -214,7 +214,7 @@ certificate() {
     fi
 
     expect <<EOF
-    spawn sudo /opt/softether/vpncmd 127.0.0.1:5555
+    spawn sudo /opt/vpnserver/vpncmd 127.0.0.1:5555
 
     expect "Select 1, 2 or 3:"
     send "1\r"
